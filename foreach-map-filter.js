@@ -147,42 +147,70 @@ Examples:
 
 function extractKey(arr, key) {
     const newArray = arr.map(function (value) {
-        return value.name; 
+        return value.name;
     });
     return newArray;
 }
 
 /*
-Write a function called extractFullName which accepts an array of objects and returns a new array with the value of the key with a name of "first" and the value of a key with the name of  "last" in each object, concatenated together with a space. 
+Write a function called extractFullName which accepts an array of objects and returns a new array 
+with the value of the key with a name of "first" and the value of a key with the name of  "last" in each object, 
+concatenated together with a space. 
 
 Examples:
-    extractFullName([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia"}, {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele"}]) // ['Elie Schoppik', 'Tim Garcia', 'Matt Lane', 'Colt Steele']
+    extractFullName([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia"}, 
+    {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele"}]) 
+    // ['Elie Schoppik', 'Tim Garcia', 'Matt Lane', 'Colt Steele']
 */
 
 function extractFullName(arr) {
-
+    const newArray = arr.map(function (value) {
+        return `${value.first} ${value.last}`;
+    });
+    return newArray;
 }
 
 /*
-Write a function called filterByValue which accepts an array of objects and a key and returns a new array with all the objects that contain that key.
+Write a function called filterByValue which accepts an array of objects and a key and 
+returns a new array with all the objects that contain that key.
 
 Examples:
-    filterByValue([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele", isCatOwner: true}], 'isCatOwner') // [{first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Colt', last:"Steele", isCatOwner: true}]
+    filterByValue([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia", isCatOwner: true}, 
+    {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele", isCatOwner: true}], 'isCatOwner') 
+    // [{first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Colt', last:"Steele", isCatOwner: true}]
 */
 
 //filter
 
-function filterByValue(arr, key) { }
+function filterByValue(arr, key) {
+    const newArray = arr.filter(function (value) {
+        if (value.isCatOwner) {
+            return value
+        }
+    });
+    return newArray;
+}
 
 /*
-Write a function called find which accepts an array and a value and returns the first element in the array that has the same value as the second parameter or undefined if the value is not found in the array.
+Write a function called find which accepts an array and a value and returns the first element 
+in the array that has the same value as the second parameter or undefined if the value is not found in the array.
 
 Examples:
     find([1,2,3,4,5], 3) // 3
     find([1,2,3,4,5], 10) // undefined
 */
 
-function find(arr, searchValue) { }
+function find(arr, searchValue) {
+    const newArray = arr.filter(function (value){
+        if(value === searchValue) {
+            return value;
+        }
+    });
+    if (newArray.length === 0) {
+        return undefined;
+    }
+    return newArray[0];
+}
 
 /*
 Write a function called findInObj which accepts an array of objects, a key, and some value to search for and returns the first found value in the array.

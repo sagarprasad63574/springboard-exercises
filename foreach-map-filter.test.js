@@ -88,47 +88,47 @@ describe("#extractKey", function() {
   });
 });
 
-// describe("#extractFulName", function() {
-//   var arr = [
-//     { first: "Elie", last: "Schoppik" },
-//     { first: "Tim", last: "Garcia" },
-//     { first: "Matt", last: "Lane" },
-//     { first: "Colt", last: "Steele" }
-//   ];
-//   it("returns a new array with the value of each key in an array objects", function() {
-//     expect(extractFullName(arr, "name")).toEqual([
-//       "Elie Schoppik",
-//       "Tim Garcia",
-//       "Matt Lane",
-//       "Colt Steele"
-//     ]);
-//   });
-// });
+describe("#extractFulName", function() {
+  var arr = [
+    { first: "Elie", last: "Schoppik" },
+    { first: "Tim", last: "Garcia" },
+    { first: "Matt", last: "Lane" },
+    { first: "Colt", last: "Steele" }
+  ];
+  it("returns a new array with the value of each key in an array objects", function() {
+    expect(extractFullName(arr, "name")).toEqual([
+      "Elie Schoppik",
+      "Tim Garcia",
+      "Matt Lane",
+      "Colt Steele"
+    ]);
+  });
+});
 
-// describe("#filterByValue", function() {
-//   var arr = [
-//     { first: "Elie", last: "Schoppik" },
-//     { first: "Tim", last: "Garcia", isCatOwner: true },
-//     { first: "Matt", last: "Lane" },
-//     { first: "Colt", last: "Steele", isCatOwner: true }
-//   ];
-//   it("returns a new array of objects that contain a key", function() {
-//     expect(filterByValue(arr, "isCatOwner")).toEqual([
-//       { first: "Tim", last: "Garcia", isCatOwner: true },
-//       { first: "Colt", last: "Steele", isCatOwner: true }
-//     ]);
-//   });
-// });
+describe("#filterByValue", function() {
+  var arr = [
+    { first: "Elie", last: "Schoppik" },
+    { first: "Tim", last: "Garcia", isCatOwner: true },
+    { first: "Matt", last: "Lane" },
+    { first: "Colt", last: "Steele", isCatOwner: true }
+  ];
+  it("returns a new array of objects that contain a key", function() {
+    expect(filterByValue(arr, "isCatOwner")).toEqual([
+      { first: "Tim", last: "Garcia", isCatOwner: true },
+      { first: "Colt", last: "Steele", isCatOwner: true }
+    ]);
+  });
+});
 
-// describe("#find", function() {
-//   var arr = [1, 2, 3, 4, 5];
-//   it("returns the first value found in an array", function() {
-//     expect(find(arr, 3)).toEqual(3);
-//   });
-//   it("returns undefined if the value is not found", function() {
-//     expect(find(arr, 10)).toEqual(undefined);
-//   });
-// });
+describe("#find", function() {
+  var arr = [1, 2, 3, 4, 5];
+  it("returns the first value found in an array", function() {
+    expect(find(arr, 3)).toEqual(3);
+  });
+  it("returns undefined if the value is not found", function() {
+    expect(find(arr, 10)).toEqual(undefined);
+  });
+});
 
 // describe("#findInObj", function() {
 //   var arr = [
