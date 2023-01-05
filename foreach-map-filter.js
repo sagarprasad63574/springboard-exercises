@@ -147,7 +147,7 @@ Examples:
 
 function extractKey(arr, key) {
     const newArray = arr.map(function (value) {
-        return value.name;
+        return value[key];
     });
     return newArray;
 }
@@ -184,7 +184,7 @@ Examples:
 
 function filterByValue(arr, key) {
     const newArray = arr.filter(function (value) {
-        if (value.isCatOwner) {
+        if (value[key]) {
             return value
         }
     });
@@ -201,8 +201,8 @@ Examples:
 */
 
 function find(arr, searchValue) {
-    const newArray = arr.filter(function (value){
-        if(value === searchValue) {
+    const newArray = arr.filter(function (value) {
+        if (value === searchValue) {
             return value;
         }
     });
@@ -213,16 +213,27 @@ function find(arr, searchValue) {
 }
 
 /*
-Write a function called findInObj which accepts an array of objects, a key, and some value to search for and returns the first found value in the array.
+Write a function called findInObj which accepts an array of objects, a key, and some value 
+to search for and returns the first found value in the array.
 
 Examples:
-    findInObj([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Matt', last:"Lane"}, {first: 'Colt', last:"Steele", isCatOwner: true}], 'isCatOwner',true) // {first: 'Tim', last:"Garcia", isCatOwner: true}
+    findInObj([{first: 'Elie', last:"Schoppik"}, {first: 'Tim', last:"Garcia", isCatOwner: true}, {first: 'Matt', last:"Lane"},
+     {first: 'Colt', last:"Steele", isCatOwner: true}], 'isCatOwner',true) 
+     // {first: 'Tim', last:"Garcia", isCatOwner: true}
 */
 
-function findInObj(arr, key, searchValue) { }
+function findInObj(arr, key, searchValue) {
+    const newArray = arr.filter(function (value) {
+        if (value[key] === searchValue) {
+            return value;
+        }
+    });
+    return newArray[0];
+}
 
 /*
-Write a function called removeVowels which accepts a string and returns a new string with all of the vowels (both uppercased and lowercased) removed. Every character in the new string should be lowercased.
+Write a function called removeVowels which accepts a string and returns a new string with all of the vowels 
+(both uppercased and lowercased) removed. Every character in the new string should be lowercased.
 
 Examples:
     removeVowels('Elie') // ('l')
@@ -230,14 +241,40 @@ Examples:
     removeVowels('ZZZZZZ') // ('zzzzzz')
 */
 
-function removeVowels(str) { }
+function removeVowels(str) {
+    str = str.toLowerCase();
+    let newArray = Array.from(str);
+    let newStr = "";
+
+    const isVowel = function (char) {
+        return 'aeiou'.indexOf(char) === -1;
+    }
+
+    newArray.filter(function (value) {
+        if (isVowel(value)) {
+            newStr += value;
+        }
+    });
+
+    return newStr;
+}
 
 /*
-Write a function called doubleOddNumbers which accepts an array and returns a new array with all of the odd numbers doubled (HINT - you can use map and filter to double and then filter the odd numbers).
+Write a function called doubleOddNumbers which accepts an array and returns a new array with all of the 
+odd numbers doubled (HINT - you can use map and filter to double and then filter the odd numbers).
 
 Examples:
     doubleOddNumbers([1,2,3,4,5]) // [2,6,10]
     doubleOddNumbers([4,4,4,4,4]) // []
 */
 
-function doubleOddNumbers(arr) { }
+function doubleOddNumbers(arr) {
+    const newArray = arr.filter(function (value) {
+        if(value % 2 === 1) {
+            return value; 
+        }
+    }).map(function (value){
+        return value * 2;
+    });
+    return newArray;
+}
