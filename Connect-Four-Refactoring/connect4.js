@@ -106,7 +106,7 @@ class Game {
 
     // check for win
     if (this.checkForWin()) {
-      return this.endGame(`Player ${this.currPlayer.color} player won!`);
+      return this.endGame(`${this.currPlayer.color} player won!`);
     }
 
     // check for tie
