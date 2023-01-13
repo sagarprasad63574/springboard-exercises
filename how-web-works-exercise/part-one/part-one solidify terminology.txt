@@ -1,0 +1,41 @@
+In your own terms, define the following terms:
+
+What is HTTP?
+HTTP stands for Hypertext Transfer Protocol, deals with the application layer protocol in the Internet
+protocol. It fetches resources such as HTML documents. It is the method to exchange data on the web and it is 
+client-server protocol, which means requests are initiated by the recipient. 
+
+What is a URL?
+URL stands for Uniform Resource Locators. It is the method to retrieve any published resource on the web.
+It is an address of a given unique resource on the web. 
+
+What is DNS?
+DNS stands for Domain Name System. The purpose of DNS is to translate human readable domain names to machine
+readable IP addresses. 
+
+What is a query string?
+A query string is the portion of the URL where data is passed to a web application. It is way to narrow down your search. 
+
+What are two HTTP verbs and how are they different?
+GET and POST methods is used to transfer data from client to server in HTTP protocol but the main difference is
+that GET carries request parameteres appended to the URL as a string and POST request parameters in the message body
+which is more secure way.
+
+What is an HTTP request?
+A HTTP request is made by a client to a named host located on a server. To make a request the client uses
+the components of a URL. 
+
+What is an HTTP response?
+A HTTP response is made by a server to a client. The server provides some data that the client requested or an error message occures. 
+
+What is an HTTP header? Give a couple examples of request and response headers you have seen.
+HTTP header is a field of an HTTP request or response that passes additional context and metadata about the request or response. 
+For example, Request headers: Host, User-Agent, Accept, Cookie, Cache-Control
+Response headers: Content-Type, Last-Modified, Set-Cookie, Cache-Control
+
+What are the processes that happen when you type “http://somesite.com/some/page.html” into a browser?
+1. The browser resolves the hostname into an IP address using DNS
+2. The browser makes a request to that IP address, including headers (info about browser, any previous cookies, and other things)
+3. The server sends a response (typically, HTML, with a status code (200 if it was sucessful)).
+4. The browser makes a DOM from that HTML, and finds any other resources needed (images, CSS, JavaScript, etc)
+5. The browser makes separate HTTP requests for those resources and receives response from the server for each
