@@ -1,0 +1,49 @@
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: darkblue;
+}
+
+form {
+    text-align: center;
+    font-size: 30px;
+    color: darkgreen;
+}
+
+input {
+    font-size: large;
+    margin-right: 20px;
+}
+
+button {
+    background-color: darkgreen;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 10px;
+    list-style: none;
+    margin-left: 10px;
+    outline: none;
+    padding: 10px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+}
+
+#movie-list {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+span {
+    margin-right: 30px;
+    padding: 10px 10px;
+}
