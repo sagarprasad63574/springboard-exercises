@@ -19,7 +19,10 @@ async function getInfo(term) {
         api_key: "MhAodEJIJxQMxW9XqxKjyXfNYdLoOIym"
     }});
 
-    let url = res.data.data[0].images.original.url;
+    let numResults = res.data.data.length;
+    let randomIdx = Math.floor(Math.random() * numResults);
+
+    let url = res.data.data[randomIdx].images.original.url;
     appendGIF(url);
 }
 

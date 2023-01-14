@@ -1,0 +1,30 @@
+h1 {
+    font-size:50px;
+    text-align: center;
+    color: darkgreen;
+}
+
+form {
+    text-align: center;
+    margin: 20px;
+}
+
+#removeButton{
+    text-align: center;
+}
+
+input {
+    font-size: 30px;
+}
+
+button {
+    background-color: darkgreen;
+    border-radius: 8px;
+    border-style: none;
+    color: #FFFFFF;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    line-height: 25px;
+    margin: 5px 10px;
+    padding: 10px 20px;
+}
