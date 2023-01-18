@@ -43,3 +43,24 @@ function navSubmitClick(evt) {
 }
 
 $navSubmit.on("click", navSubmitClick); 
+
+/** Show users favorite list on click the link for favorite */
+
+function navFavoritesClick(evt) {
+  console.debug("navFavorites", evt); 
+  
+  hidePageComponents();
+  putFavoritesOnPage(); 
+}
+$navFavorites.on("click", navFavoritesClick); 
+
+function navUserStories(evt) {
+  console.debug("navUserStories", evt);
+
+  hidePageComponents();
+  putUserStoriesOnPage();
+  $userStories.show();
+
+}
+
+$navUserStories.on("click", navUserStories);

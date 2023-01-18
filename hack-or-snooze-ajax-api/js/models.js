@@ -25,7 +25,7 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return new URL(this.url).host;
   }
 }
 
@@ -81,7 +81,7 @@ class StoryList {
       method: "POST",
       data: {
         token: user.loginToken,
-        story: {  
+        story: {
           author: newStory.author,
           title: newStory.title,
           url: newStory.url
@@ -89,19 +89,27 @@ class StoryList {
       },
     });
 
-    let { story } = response.data; 
+    const story = new Story(response.data.story);
+    this.stories.unshift(story);
+    user.ownStories.unshift(story);
 
-    return new Story(
-      {
-        storyId: story.storyId,
-        title: story.title,
-        author: story.author,
-        url: story.url,
-        username: story.username,
-        createdAt: story.createdAt
+    return story;
+
+  }
+
+  async removeStory(user, storyId) {
+    const token = user.loginToken;
+    await axios({
+      url: `${BASE_URL}/stories/${storyId}`,
+      method: "DELETE",
+      data: { 
+        token 
       }
-    );
+    });
 
+    this.stories = this.stories.filter(story => story.storyId !== storyId);
+    user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+    user.favorites = user.favorites.filter(s => s.storyId !== storyId);
   }
 }
 
@@ -219,5 +227,33 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  async addFavorite(story) {
+    this.favorites.push(story);
+    const token = this.loginToken;
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "POST",
+      data: {
+        token
+      }
+    })
+  }
+
+  async removeFavorite(story) {
+    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
+    const token = this.loginToken;
+    await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "DELETE",
+      data: {
+        token
+      }
+    })
+  }
+  
+  isFavorite(story) {
+    return this.favorites.some(s => (s.storyId === story.storyId));
   }
 }
