@@ -54,12 +54,14 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
+// Puts the new story at the beginning  on the page 
 async function putNewStoryOnThePage(evt) {
   evt.preventDefault();
   const author = $("#author").val();
   const title = $("#title").val();
   const url = $("#url").val();
 
+  // Adds the new story to the storylist 
   const newStory = await storyList.addStory(currentUser, { title, author, url });
 
   const $story = generateStoryMarkup(newStory);
@@ -71,6 +73,7 @@ async function putNewStoryOnThePage(evt) {
 }
 $addStoryForm.on("submit", putNewStoryOnThePage);
 
+// Puts the user's favorite story list on the page. 
 function putFavoritesOnPage() {
   $favoriteStoriesList.empty(); 
 
@@ -86,6 +89,7 @@ function putFavoritesOnPage() {
   $favoriteStoriesList.show();
 }
 
+// Puts the user's stories on the page. 
 function putUserStoriesOnPage() {
   console.debug("putUserStoriesOnPage");
 
@@ -95,7 +99,6 @@ function putUserStoriesOnPage() {
     $userStories.append("<h2>No stories added by user!</h2>");
   } else {
     for (let story of currentUser.ownStories) {
-      console.log(story);
       let $newStory = generateStoryMarkup(story, true);
       $userStories.append($newStory);
     }
@@ -104,7 +107,7 @@ function putUserStoriesOnPage() {
   $userStories.show();
 }
 
-
+// Creates the HTML for the star icon
 function getStarHTML(story) {
   const isFavorite = currentUser.isFavorite(story);
   const starType = isFavorite ? "fas" : "far";
@@ -114,8 +117,8 @@ function getStarHTML(story) {
       </span>`;
 }
 
+// Toggles the favorite star icon on/off depending on what the user's clicked
 async function toggleFavorites(evt) {
-
   const $target = $(evt.target);
   const $closestLi = $target.closest("li");
   const storyId = $closestLi.attr("id");
@@ -129,9 +132,9 @@ async function toggleFavorites(evt) {
     $target.closest("i").toggleClass("fas far");
   }
 }
-
 $storiesList.on("click", ".star", toggleFavorites);
 
+// Creates the HTML for the Trash-can icon
 function getDeleteBtnHTML() {
   return `
       <span class="trash-can">
@@ -139,7 +142,7 @@ function getDeleteBtnHTML() {
       </span>`;
 }
 
-
+// Deletes a story from the storylist and removes it from the page
 async function deleteStory(evt) {
   console.debug("deleteStory");
 
@@ -150,5 +153,4 @@ async function deleteStory(evt) {
 
   await putUserStoriesOnPage();
 }
-
 $userStories.on("click", ".trash-can", deleteStory);

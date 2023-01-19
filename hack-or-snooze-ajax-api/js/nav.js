@@ -44,7 +44,7 @@ function navSubmitClick(evt) {
 
 $navSubmit.on("click", navSubmitClick); 
 
-/** Show users favorite list on click the link for favorite */
+/** Show users favorite list when cliked on the favorite link*/
 
 function navFavoritesClick(evt) {
   console.debug("navFavorites", evt); 
@@ -53,6 +53,8 @@ function navFavoritesClick(evt) {
   putFavoritesOnPage(); 
 }
 $navFavorites.on("click", navFavoritesClick); 
+
+/**Show users stories when clicked on the my stories link */
 
 function navUserStories(evt) {
   console.debug("navUserStories", evt);

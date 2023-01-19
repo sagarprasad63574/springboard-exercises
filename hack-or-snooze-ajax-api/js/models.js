@@ -76,6 +76,7 @@ class StoryList {
   async addStory(user, newStory) {
     // UNIMPLEMENTED: complete this function!
 
+    // Calls the API for /stories to add a new story to the API and return a response
     const response = await axios({
       url: `${BASE_URL}/stories`,
       method: "POST",
@@ -89,8 +90,13 @@ class StoryList {
       },
     });
 
+    // Creates a new story object based on the return response from API
     const story = new Story(response.data.story);
+
+    // Adds the story to the stories list 
     this.stories.unshift(story);
+
+    // Adds the story to the user's story list 
     user.ownStories.unshift(story);
 
     return story;
@@ -98,6 +104,8 @@ class StoryList {
   }
 
   async removeStory(user, storyId) {
+
+    // Calls the API to remove a story from API based on a given storyId
     const token = user.loginToken;
     await axios({
       url: `${BASE_URL}/stories/${storyId}`,
@@ -107,8 +115,13 @@ class StoryList {
       }
     });
 
+    // Removes the story from the stories lists based on the storyId
     this.stories = this.stories.filter(story => story.storyId !== storyId);
+
+    // Removes the story from the user's story list based on the storyId
     user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+
+    // Removes the story from the user's favorite list based on the storyId
     user.favorites = user.favorites.filter(s => s.storyId !== storyId);
   }
 }
@@ -229,6 +242,8 @@ class User {
     }
   }
 
+  /** Adds a story to the user's favorite list. Calls the API with the endpoint /favorites and the 
+   * the parameters for storyId, username, and token */ 
   async addFavorite(story) {
     this.favorites.push(story);
     const token = this.loginToken;
@@ -241,6 +256,8 @@ class User {
     })
   }
 
+  /** Removes a story to the user's favorite list. Calls the API with the endpoint /favorites and the 
+   * the parameters for storyId, username, and token */ 
   async removeFavorite(story) {
     this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
     const token = this.loginToken;
@@ -253,6 +270,7 @@ class User {
     })
   }
   
+  // Checks if the story is the user's favorite list. 
   isFavorite(story) {
     return this.favorites.some(s => (s.storyId === story.storyId));
   }
