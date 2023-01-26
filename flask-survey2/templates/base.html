@@ -12,7 +12,9 @@
     {% block content %}
         <h1>{{title}}</h1>
         <h3>{{instructions}}</h3>
-        <a href="/questions/0"><button>Start!</button></a>
+        <form action="/begin" method="POST">
+            <button>Start!</button>
+        </form>
     {% endblock %}
 </body>
 
