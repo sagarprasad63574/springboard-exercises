@@ -93,16 +93,28 @@ class UserViewsTestCase(TestCase):
 
     # def test_edit_post(self):
     #     with app.test_client() as client:
-    #         post = Post(title="My First New Post", content="Hi my name is Tom Smith, This is my new post", user=self.user_id)
+    #         post = Post(title="Second Post", content="Hi my name is Tom Smith. This is my second post", user=self.user_id)
     #         db.session.add(post)
     #         db.session.commit()
 
-    #         d = {"title": "New Title", "content": "Wow new content!"}
+    #         d = {"title": "New Post", "content": "Wow new content"}
     #         resp = client.post(f"/posts/{post.id}/edit", data=d, follow_redirects=True)
     #         html = resp.get_data(as_text=True)
 
     #         self.assertEqual(resp.status_code, 200)
-    #         self.assertIn('New Title', html)
+    #         self.assertIn('New Post', html)
             
     #         Post.query.filter_by(id=post.id).delete()
     #         db.session.commit()
+
+    def test_delete_post(self):
+        with app.test_client() as client:
+            post = Post(title="New Post", content="Hi my name is Tom Smith. This is my first post", user=self.user_id)
+            db.session.add(post)
+            db.session.commit()
+
+            resp = client.post(f"/posts/{post.id}/delete", follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertNotIn('New Post', html)
