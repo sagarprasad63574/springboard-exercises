@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User
+from models import db, User, Post
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
 app.config['SQLALCHEMY_ECHO'] = False
@@ -15,10 +15,10 @@ db.create_all()
 
 
 class UserViewsTestCase(TestCase):
-    """Tests for views for users."""
+    """Tests for views for users"""
 
     def setUp(self):
-        """Add sample user."""
+        """Add sample user"""
 
         User.query.delete()
 
@@ -74,3 +74,35 @@ class UserViewsTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn('Tom Smith', html)
+
+    def test_show_post(self):
+        with app.test_client() as client:
+
+            post = Post(title="My First New Post", content="Hi my name is Tom Smith, This is my new post", user=self.user_id)
+            db.session.add(post)
+            db.session.commit()
+            
+            resp = client.get(f"/posts/{post.id}")
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('<h1>My First New Post</h1>', html)
+
+            Post.query.filter_by(id=post.id).delete()
+            db.session.commit()
+
+    # def test_edit_post(self):
+    #     with app.test_client() as client:
+    #         post = Post(title="My First New Post", content="Hi my name is Tom Smith, This is my new post", user=self.user_id)
+    #         db.session.add(post)
+    #         db.session.commit()
+
+    #         d = {"title": "New Title", "content": "Wow new content!"}
+    #         resp = client.post(f"/posts/{post.id}/edit", data=d, follow_redirects=True)
+    #         html = resp.get_data(as_text=True)
+
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertIn('New Title', html)
+            
+    #         Post.query.filter_by(id=post.id).delete()
+    #         db.session.commit()
