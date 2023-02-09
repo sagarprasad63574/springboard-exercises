@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User, Post
+from models import db, User, Post, Tag, PostTag
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
 app.config['SQLALCHEMY_ECHO'] = False
@@ -118,3 +118,52 @@ class UserViewsTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn('New Post', html)
+    
+    
+    def test_add_tag(self):
+        with app.test_client() as client:
+            d = {"tag_name": "Sad"}
+            resp = client.post("/tags/new", data=d, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('Sad', html)
+
+    def test_show_tag(self):
+        with app.test_client() as client:
+
+            tag = Tag(name="Fun")
+            db.session.add(tag)
+            db.session.commit()
+            
+            resp = client.get(f"/tags/{tag.id}")
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('<h1>Fun</h1>', html)
+
+    def test_edit_tag(self):
+        with app.test_client() as client:
+            tag = Tag(name="Lazy")
+            db.session.add(tag)
+            db.session.commit()
+
+            d = {"tag_name": "angry"}
+            resp = client.post(f"/tags/{tag.id}/edit", data=d, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('angry', html)
+    
+    
+    def test_delete_tag(self):
+        with app.test_client() as client:
+            tag = Tag(name="Joy")
+            db.session.add(tag)
+            db.session.commit()
+
+            resp = client.post(f"/tags/{tag.id}/delete", follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertNotIn('Joy', html)

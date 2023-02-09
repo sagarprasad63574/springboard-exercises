@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, request, redirect, render_template
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -88,6 +88,14 @@ def edit_user_details(user_id):
 def delete_user(user_id):
     """Delete a user info."""
 
+    user = User.query.get(user_id)
+    for post in user.user_posts:        
+        for tag in post.tags:
+            PostTag.query.filter_by(tag_id=tag.id).delete()
+            db.session.commit()
+        Post.query.filter_by(id=post.id).delete()
+        db.session.commit()
+
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
 
@@ -97,7 +105,8 @@ def delete_user(user_id):
 def post_form(user_id):
     """Show post form."""
     user = User.query.get_or_404(user_id)
-    return render_template("post_form.html", user=user)
+    tags = Tag.query.all()
+    return render_template("post_form.html", user=user, tags=tags)
 
 @app.route("/users/<int:user_id>/posts/new", methods=["POST"])
 def add_new_post(user_id):
@@ -108,7 +117,10 @@ def add_new_post(user_id):
     if content == "": 
         content = None
 
-    post = Post(title=title, content=content, user=user_id)
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
+    tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
+
+    post = Post(title=title, content=content, user=user_id, tags=tags)
     db.session.add(post)
     db.session.commit()
 
@@ -126,7 +138,8 @@ def post_edit_form(post_id):
     """Show post edit form."""
 
     post = Post.query.get_or_404(post_id)
-    return render_template("post_edit.html", post=post)
+    tags = Tag.query.all()
+    return render_template("post_edit.html", post=post, tags=tags)
 
 @app.route("/posts/<int:post_id>/edit", methods=["POST"])
 def edit_post_details(post_id):
@@ -137,10 +150,12 @@ def edit_post_details(post_id):
     if content == "": 
         content = None
 
-
     post = Post.query.get_or_404(post_id)
     post.title = title
     post.content = content
+
+    tag_ids = [int(num) for num in request.form.getlist("tags")]
+    post.tags = Tag.query.filter(Tag.id.in_(tag_ids)).all()
 
     db.session.add(post)
     db.session.commit()
@@ -153,7 +168,73 @@ def delete_post(post_id):
 
     user_id = Post.query.filter_by(id=post_id).one().user_info.id
 
+    post = Post.query.get(post_id)
+    for tag in post.tags:
+        PostTag.query.filter_by(tag_id=tag.id).delete()
+        db.session.commit()
+
     Post.query.filter_by(id=post_id).delete()
     db.session.commit()
 
     return redirect(f"/users/{user_id}")
+
+@app.route("/tags")
+def list_tags():
+    """List tags."""
+
+    tags = Tag.query.all()
+    return render_template("tags.html", tags=tags)
+
+@app.route("/tags/new")
+def new_tag():
+    """Show tag form."""
+    return render_template("tag_form.html")
+
+@app.route("/tags/new", methods=["POST"])
+def add_new_tag():
+    """Add a tag user."""
+
+    name = request.form['tag_name']
+
+    tag = Tag(name=name)
+    db.session.add(tag)
+    db.session.commit()
+
+    return redirect("/tags")
+
+@app.route("/tags/<int:tag_id>")
+def show_tag_details(tag_id):
+    """Show tag details."""
+
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template("tag_details.html", tag=tag)
+
+@app.route("/tags/<int:tag_id>/edit")
+def tag_edit_form(tag_id):
+    """Show tag edit form."""
+    tag = Tag.query.get_or_404(tag_id)
+    return render_template("tag_edit.html", tag=tag)
+
+@app.route("/tags/<int:tag_id>/edit", methods=["POST"])
+def edit_tag_details(tag_id):
+    """Edit a tag info."""
+
+    name = request.form['tag_name']
+
+    tag = Tag.query.get_or_404(tag_id)
+    tag.name = name
+
+    db.session.add(tag)
+    db.session.commit()
+
+    return redirect("/tags")
+
+
+@app.route("/tags/<int:tag_id>/delete", methods=["POST"])
+def delete_tag(tag_id):
+    """Delete a tag info."""
+
+    Tag.query.filter_by(id=tag_id).delete()
+    db.session.commit()
+
+    return redirect("/tags")
