@@ -88,6 +88,10 @@ def edit_user_details(user_id):
 def delete_user(user_id):
     """Delete a user info."""
 
+    user = User.query.get(user_id)
+    for post in user.user_posts:        
+        Post.query.filter_by(id=post.id).delete()
+        db.session.commit()
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
 
