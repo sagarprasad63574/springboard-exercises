@@ -1,5 +1,5 @@
 """Models for Blogly."""
-
+"""Blank Image for image_url column in User table reference: https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/"""
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
