@@ -15,9 +15,9 @@
 
     {% for field in form if field.widget.input_type != 'hidden'%}
 
-    <div class='form-group'>
+    <div>
         {{ field.label }}
-        {{ field(class="form-control") }}
+        {{ field }}
 
         <span>
             {% if field.errors %}
