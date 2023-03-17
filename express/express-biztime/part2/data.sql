@@ -1,4 +1,4 @@
-\c biztime
+\c biztime_test
 
 DROP TABLE IF EXISTS invoices CASCADE;
 DROP TABLE IF EXISTS companies CASCADE;
@@ -27,8 +27,8 @@ CREATE TABLE industries (
 );
 
 CREATE TABLE companies_industries (
-  company_code TEXT NOT NULL REFERENCES companies,
-  industry_code TEXT NOT NULL REFERENCES industries,
+  company_code TEXT NOT NULL REFERENCES companies ON DELETE CASCADE,
+  industry_code TEXT NOT NULL REFERENCES industries ON DELETE CASCADE,
   PRIMARY KEY(company_code, industry_code)
 );
 
