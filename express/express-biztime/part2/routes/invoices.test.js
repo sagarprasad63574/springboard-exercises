@@ -20,9 +20,9 @@ describe("GET /", function () {
     const response = await request(app).get("/invoices");
     expect(response.body).toEqual({
       "invoices": [
-        { id: 1, comp_code: "apple", amt: 100, paid: false, add_date: '2018-01-01T08:00:00.000Z', paid_date: null },
-        { id: 2, comp_code: "apple", amt: 200, paid: true, add_date: '2018-02-01T08:00:00.000Z', paid_date: '2018-02-02T08:00:00.000Z' },
-        { id: 3, comp_code: "ibm", amt: 300, paid: false, add_date: '2018-03-01T08:00:00.000Z', paid_date: null },
+        { id: 1, comp_code: "apple" },
+        { id: 2, comp_code: "apple" },
+        { id: 3, comp_code: "ibm" },
       ]
     });
   })
@@ -42,7 +42,11 @@ describe("GET /1", function () {
           add_date: '2018-01-01T08:00:00.000Z',
           paid: false,
           paid_date: null,
-          comp_code: 'apple'
+          company: {
+            code: "apple",
+            name: "Apple",
+            description: "Maker of OSX."
+          }
         }
       }
     );
@@ -123,7 +127,7 @@ describe("DELETE /", function () {
     const response = await request(app)
       .delete("/invoices/1");
 
-    expect(response.body).toEqual({ "msg": "DELETED!" });
+    expect(response.body).toEqual({ "status": "deleted" });
   });
 
   test("It should return 404 for no-such-invoices", async function () {

@@ -20,8 +20,8 @@ describe("GET /", function () {
     const response = await request(app).get("/companies");
     expect(response.body).toEqual({
       "companies": [
-        { code: "apple", name: "Apple", description: "Maker of OSX." },
-        { code: "ibm", name: "IBM", description: "Big blue." },
+        { code: "apple", name: "Apple" },
+        { code: "ibm", name: "IBM" },
       ]
     });
   })
@@ -40,7 +40,7 @@ describe("GET /apple", function () {
           name: "Apple",
           description: "Maker of OSX.",
           invoices: [1, 2],
-          industries: []
+          industries: ["Accounting", "Educational"]
         }
       }
     );
@@ -123,7 +123,7 @@ describe("DELETE /", function () {
     const response = await request(app)
       .delete("/companies/apple");
 
-    expect(response.body).toEqual({ "msg": "DELETED!" });
+    expect(response.body).toEqual({ "status": "deleted" });
   });
 
   test("It should return 404 for no-such-comp", async function () {
