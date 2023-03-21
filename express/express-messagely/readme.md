@@ -23,4 +23,3 @@ const DB_URI = (process.env.NODE_ENV === "test")
   ? "messagely_test"
   : "messagely";
 ```
-```
