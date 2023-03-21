@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === "test") {
 ```
 - I believe the problem is that I'm using a Windows machine and on Ubuntu. So I went to read the docs for node-postgresql and I found that I need run the following code in order to connect my database on Ubuntu. 
 ```js
-const db = new pg.Client({
+const db = new Client({
     user: 'sagarprasad63574',
     host: 'localhost',
     database: 'lunchly',
