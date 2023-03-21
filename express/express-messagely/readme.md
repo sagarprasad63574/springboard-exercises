@@ -19,6 +19,8 @@ const db = new pg.Client({
     port: 5432,
 });
 
+```
+```js
 const DB_URI = (process.env.NODE_ENV === "test")
   ? "messagely_test"
   : "messagely";
