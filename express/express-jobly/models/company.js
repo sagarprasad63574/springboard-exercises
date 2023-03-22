@@ -53,7 +53,7 @@ class Company {
    * - maxEmployees
    * - name (will find case-insensitive, partial matches)
    * 
-   * For each possible search term, add to whereExpressions and values so vwe can generate the right SQL
+   * For each possible search term, add to whereExpressions and values so we can generate the right SQL
    * */
 
   static async findAll(searchFilters = {}) {
@@ -118,6 +118,16 @@ class Company {
     const company = companyRes.rows[0];
 
     if (!company) throw new NotFoundError(`No company: ${handle}`);
+
+    const jobsResult = await db.query(
+      `SELECT id, title, salary, equity
+       FROM jobs
+       WHERE company_handle = $1
+       ORDER BY id`,
+      [handle],
+    );
+
+    company.jobs = jobsResult.rows;
 
     return company;
   }
