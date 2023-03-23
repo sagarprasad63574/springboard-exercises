@@ -38,7 +38,6 @@ class User {
 
     if (user) {
       if (await bcrypt.compare(password, user.password)) {
-        // const token = jwt.sign({ username }, SECRET_KEY);
         return true;
       }
       return false;
