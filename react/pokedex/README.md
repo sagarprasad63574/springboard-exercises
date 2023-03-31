@@ -1,3 +1,7 @@
+### I'm using node version 18.15.0
+### I'm using "react-scripts": "^5.0.1"
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
