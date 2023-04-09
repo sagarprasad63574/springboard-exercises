@@ -1,0 +1,55 @@
+/* .NavBar {
+    background-color: tomato;
+    text-align: center;
+    font-weight: bold;
+}
+
+.NavBar a {
+    padding: 0.5em 0;
+    width: 10em;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+}
+
+.NavBar a:hover {
+    background-color: black;
+    color: white !important;
+}
+
+.NavBar a.active {
+    font-weight: bold;
+    color: black;
+} */
+
+/* .Message {
+    padding: 2rem;
+    margin: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: black;
+    text-transform: uppercase;
+    border-radius: 10px;
+    text-align: center; 
+    justify-content: space-between;
+} */
+
+.VendingMachine {
+    padding: 2rem;
+    margin: 1rem;
+    text-transform: uppercase;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    align-items: center;
+}
+
+.VendingMachine a {
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.VendingMachine a:hover {
+    text-decoration: underline;
+}

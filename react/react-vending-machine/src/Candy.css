@@ -1,0 +1,20 @@
+.candy {
+    padding: 1rem;
+    margin: 1rem;
+    text-transform: uppercase;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: lightblue;
+    display: inline-block;
+    align-items: center;
+}
+
+.candy a {
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.candy a:hover {
+    text-decoration: underline;
+}
