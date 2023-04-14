@@ -5,23 +5,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-/** Simple app that just shows the LightsOut game. */
-
 function App() {
-  // App.defaultProps = {
-  //   colors: [
-  //     {
-  //       id: "1",
-  //       colorName: "blue",
-  //       colorValue: "#0000FF",
-  //     }
-  //   ]
-  // }
-  // const addColor = (newColor) => {
-  //   console.log(newColor);
-  //   App.defaultProps.colors.push(newColor);
-  //   console.log(App.defaultProps.colors);
-  // }
   const [colors, setColor] = useState([
     {
       id: "1",
