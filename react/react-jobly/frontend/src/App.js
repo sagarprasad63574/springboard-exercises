@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import useLocalStorage from "./hooks/useLocalStorage.js";
 import JoblyApi from "./api/api.js";
