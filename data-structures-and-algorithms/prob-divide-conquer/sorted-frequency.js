@@ -1,4 +1,4 @@
-function sortedFrequency() {
+function sortedFrequency(arr, num) {
     let firstIndex = findFirst(arr, num);
     if (firstIndex == -1) return firstIndex;
     let lastIndex = findLast(arr, num);
